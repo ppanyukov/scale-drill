@@ -23,11 +23,7 @@
         return keys[index]
       }
 
-    </script>
-
-    <script>
-      $(document).ready(function(){
-        $("#next").on("click", function(){
+      function nextScale() {
           var keyName = getRandomKey();
           var keyDiv = $("<div/>", {
             "class": "key",
@@ -35,7 +31,13 @@
           });
 
           $("#keys").prepend(keyDiv);
-        });
+      }
+    </script>
+
+    <script>
+      $(document).ready(function(){
+        $("#next").on("click", nextScale);
+        nextScale();
       });
     </script>
 
@@ -65,9 +67,12 @@
         border-right: none;
         border-top: none;
         border-width: 1px;
-        padding: 5px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 25px;
+        padding-bottom: 25px;
         margin: 5px;
-        font-size: x-large;
+        font-size: xx-large;
         font-weight: bold;
         font-family: sans-serif;
       }
