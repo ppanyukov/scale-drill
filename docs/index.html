@@ -2,8 +2,65 @@
 <html>
   <head>
     <title>Scale Drills</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+      crossorigin="anonymous">
+    </script>
+
+    <script>
+      var keys = [
+        "C", "D", "Db/C#", "E", "Eb", "F", "F#", "G", "Ab/G#", "A", "Bb", "B"
+      ];
+
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+
+      function getRandomKey() {
+        var index = getRandomInt(keys.length - 1)
+        return keys[index]
+      }
+
+    </script>
+
+    <script>
+      $(document).ready(function(){
+        $("#next").on("click", function(){
+          var keyName = getRandomKey();
+          var keyDiv = $("<div/>", {
+            "class": "key",
+            "text": keyName,
+          });
+
+          $("#keys").prepend(keyDiv);
+        });
+      });
+    </script>
+
+    <style>
+      .next {
+        border-style: solid;
+        border-width: 1px;
+        padding: 5px;
+        margin: 5px;
+        font-size: large;
+        font-weight: bold;
+      }
+
+      .key {
+        border-style: solid;
+        border-width: 1px;
+        padding: 5px;
+        margin: 5px;
+      }
+
+    </style>
   </head>
+
   <body>
-    <h1>Hello</h1>
+    <button id="next" class="next">Next scale</button>
+    <div id="keys">
+    </div>
   </body>
 </html>
