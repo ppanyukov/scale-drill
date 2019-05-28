@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Scale Drills</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scale Drills</title>
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
@@ -14,20 +15,43 @@
         "C", "D", "Db/C#", "E", "Eb", "F", "F#", "G", "Ab/G#", "A", "Bb", "B"
       ];
 
-      function getRandomInt(max) {
-        return Math.floor(Math.random() * Math.floor(max));
+      var tones = [
+        "Major", "minor (harm)", "minor (mel)"
+      ]
+
+      var hands = [
+        "HT", "RH", "LH"
+      ]
+
+      var sets = [
+        keys,
+        tones,
+        hands,
+      ]
+
+      function getRandomItem(itemArray) {
+        var max = itemArray.length - 1;
+        var randIndex = Math.floor(Math.random() * Math.floor(max));
+        return itemArray[randIndex];
       }
 
       function getRandomKey() {
-        var index = getRandomInt(keys.length - 1)
-        return keys[index]
+        var result = [];
+
+        for (var i = 0; i < sets.length; i++) {
+          items = sets[i];
+          randomVal = getRandomItem(items);
+          result.push("<div class='key-cell'>" + randomVal + "</div>");
+        }
+
+        return result.join(" &nbsp; &nbsp; ");
       }
 
       function nextScale() {
           var keyName = getRandomKey();
           var keyDiv = $("<div/>", {
             "class": "key",
-            "text": keyName,
+            "html": keyName,
           });
 
           $("#keys").prepend(keyDiv);
@@ -66,7 +90,7 @@
         border-left: none;
         border-right: none;
         border-top: none;
-        border-width: 1px;
+        border-width: 3px;
         padding-left: 15px;
         padding-right: 15px;
         padding-top: 25px;
@@ -75,6 +99,10 @@
         font-size: xx-large;
         font-weight: bold;
         font-family: sans-serif;
+      }
+
+      .key-cell {
+        min-width: 20em;
       }
 
     </style>
