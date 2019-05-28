@@ -1,117 +1,124 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Scale Drills</title>
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-      crossorigin="anonymous">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scale Drills</title>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous">
     </script>
 
-    <script>
-      var keys = [
-        "C", "D", "Db/C#", "E", "Eb", "F", "F#", "G", "Ab/G#", "A", "Bb", "B"
-      ];
+  <script>
+    var keys = [
+      "C", "D", "Db/C#", "E", "Eb", "F", "F#", "G", "Ab/G#", "A", "Bb", "B"
+    ];
 
-      var tones = [
-        "Major", "minor (harm)", "minor (mel)"
-      ]
+    var tones = [
+      "Major", "harmonic minor", "melodic minor"
+    ]
 
-      var hands = [
-        "HT", "RH", "LH"
-      ]
+    var hands = [
+      "HT", "RH", "LH"
+    ]
 
-      var sets = [
-        keys,
-        tones,
-        hands,
-      ]
+    var sets = [
+      keys,
+      tones,
+      hands,
+    ]
 
-      function getRandomItem(itemArray) {
-        var max = itemArray.length - 1;
-        var randIndex = Math.floor(Math.random() * Math.floor(max));
-        return itemArray[randIndex];
+    function getRandomItem(itemArray) {
+      var max = itemArray.length;
+      var randIndex = Math.floor(Math.random() * Math.floor(max));
+      return itemArray[randIndex];
+    }
+
+    function getRandomKey() {
+      var result = [];
+
+      for (var i = 0; i < sets.length; i++) {
+        items = sets[i];
+        randomVal = getRandomItem(items);
+        result.push("<div class='key-cell'>" + randomVal + "</div>");
       }
 
-      function getRandomKey() {
-        var result = [];
+      return result.join(" &nbsp; &nbsp; ");
+    }
 
-        for (var i = 0; i < sets.length; i++) {
-          items = sets[i];
-          randomVal = getRandomItem(items);
-          result.push("<div class='key-cell'>" + randomVal + "</div>");
-        }
+    function nextScale() {
+      // mark existing keys done
+      $(".key").addClass("key-done");
 
-        return result.join(" &nbsp; &nbsp; ");
-      }
-
-      function nextScale() {
-          var keyName = getRandomKey();
-          var keyDiv = $("<div/>", {
-            "class": "key",
-            "html": keyName,
-          });
-
-          $("#keys").prepend(keyDiv);
-      }
-    </script>
-
-    <script>
-      $(document).ready(function(){
-        $("#next").on("click", nextScale);
-        nextScale();
+      var keyName = getRandomKey();
+      var keyDiv = $("<div/>", {
+        "class": "key",
+        "html": keyName,
       });
-    </script>
 
-    <style>
-      .button {
-        border: solid;
-        border-width: 1px;
-        border-radius: 8px;
-        color: #fff;
-        background-color: #337ab7;
-        border-color: #2e6da4;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: large;
-        font-weight: bold;
-        font-family: sans-serif;
-        width: 100%;
-        cursor: pointer;
-      }
+      $(".keys").prepend(keyDiv);
+    }
+  </script>
 
-      .key {
-        border-style: solid;
-        border-left: none;
-        border-right: none;
-        border-top: none;
-        border-width: 3px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 25px;
-        padding-bottom: 25px;
-        margin: 5px;
-        font-size: xx-large;
-        font-weight: bold;
-        font-family: sans-serif;
-      }
+  <script>
+    $(document).ready(function () {
+      $("#next").on("click", nextScale);
+      nextScale();
+    });
+  </script>
 
-      .key-cell {
-        min-width: 20em;
-      }
+  <style>
+    .button {
+      border: solid;
+      border-width: 1px;
+      border-radius: 8px;
+      color: #fff;
+      background-color: #337ab7;
+      border-color: #2e6da4;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: large;
+      font-weight: bold;
+      font-family: sans-serif;
+      width: 100%;
+      cursor: pointer;
+    }
 
-    </style>
-  </head>
+    .key {
+      border-style: solid;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      border-width: 3px;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 25px;
+      padding-bottom: 25px;
+      margin: 5px;
+      font-size: xx-large;
+      font-weight: bold;
+      font-family: sans-serif;
+    }
 
-  <body>
-    <button id="next" class="button">Next scale</button>
+    .key-done {
+      /* color: darkgray; */
+      opacity: 0.25;
+    }
 
-    <div id="keys" class="keys">
-    </div>
-  </body>
+    .key-cell {
+      min-width: 20em;
+    }
+  </style>
+</head>
+
+<body>
+  <button id="next" class="button">Next scale</button>
+
+  <div class="keys">
+  </div>
+</body>
+
 </html>
